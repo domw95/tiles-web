@@ -1,0 +1,19 @@
+{
+  "name": "azul-gui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/domw95/azul-web.git"
+  },
+  "author": "domw95",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/domw95/azul-web/issues"
+  },
+  "homepage": "https://github.com/domw95/azul-web#readme"
+}
