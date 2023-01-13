@@ -1,7 +1,7 @@
 {
-    "name": "azul-web",
+    "name": "tiles-web",
     "version": "1.0.0",
-    "description": "My webpack project",
+    "description": "A web gui for the tiles game, based on Azul",
     "main": "src/index.ts",
     "type": "module",
     "scripts": {
@@ -14,14 +14,14 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/domw95/azul-web.git"
+        "url": "git+https://github.com/domw95/tiles-web.git"
     },
     "author": "domw95",
     "license": "ISC",
     "bugs": {
-        "url": "https://github.com/domw95/azul-web/issues"
+        "url": "https://github.com/domw95/tiles-web/issues"
     },
-    "homepage": "https://github.com/domw95/azul-web#readme",
+    "homepage": "https://github.com/domw95/tiles-web#readme",
     "devDependencies": {
         "@webpack-cli/generators": "^3.0.1",
         "css-loader": "^6.7.3",
