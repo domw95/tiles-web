@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+        <!-- <link rel="stylesheet" href="gui.css"> -->
+        <script
+            defer
+            data-domain="domwil.co.uk"
+            src="https://plausible.domwil.co.uk/js/script.tagged-events.js"
+        ></script>
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/games/tiles/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/games/tiles/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/games/tiles/favicon-16x16.png" />
+        <link rel="manifest" href="/games/tiles/site.webmanifest" />
+        <link rel="mask-icon" href="/games/tiles/safari-pinned-tab.svg" color="#417373" />
+        <meta name="msapplication-TileColor" content="#417373" />
+        <meta name="theme-color" content="#417373" />
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker
+                        .register("/games/tiles/service-worker.js")
+                        .then((registration) => {
+                            console.log("SW registered: ", registration);
+                        })
+                        .catch((registrationError) => {
+                            console.log("SW registration failed: ", registrationError);
+                        });
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <!-- Start screen -->
+        <div id="start" class="flex-column">
+            <div id="title">
+                <h1>Tiles</h1>
+            </div>
+            <h2>How to play</h2>
+            <div id="instruction" class="border">
+                <ul>
+                    <li>
+                        <a
+                            class="plausible-event-name=rules"
+                            href="https://www.ultraboardgames.com/azul/game-rules.php"
+                            target="_blank"
+                            >The Rules can be found here</a
+                        >
+                    </li>
+                    <li>
+                        On your turn:
+                        <ul>
+                            <li>Select tile/tiles from a factory by clicking or tapping on them.</li>
+                            <li>Place the tile on your board by selecting an available line.</li>
+                        </ul>
+                    </li>
+                    <li>Click anywhere on the screen to play the AI moves and to end each round.</li>
+                    <li>
+                        Hints:
+                        <ul>
+                            <li>The active player's board is highlighted.</li>
+                            <li>Scroll to right to view factories and opponents boards if they are off the screen.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div id="setup" class="flex-column">
+                <div><h2>Select Players</h2></div>
+                <div id="setup-box" class="border" class="flex-column">
+                    <div id="players" class="flex-column"></div>
+                    <div id="add-new" , class="flex-row">
+                        <div id="add-player-string"><h4>Add Player</h4></div>
+                        <div>
+                            <label
+                                >Type:
+                                <select id="add-new-type" name="type">
+                                    <option value="ai">AI</option>
+                                    <!-- <option value="ai-advanced">AI Advanced</option> -->
+                                    <option value="human">Human</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div>
+                            <button type="button" id="add-player-button">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="Tiles">
+                <button id="start-button">Start</button>
+            </div>
+        </div>
+
+        <div id="templates">
+            <!-- Dummy players for copying -->
+            <!-- Human -->
+            <form id="human-player-template" class="human-player player" onsubmit="return false;">
+                <input type="hidden" name="player-type" value="human" />
+                <div class="player-header"><h3 class="player-title">Player 1</h3></div>
+                <div class="player-type-header"><h4>Human</h4></div>
+                <div>
+                    <div>
+                        <label
+                            >Name:
+                            <input type="text" name="name" value="" maxlength="7" size="7" />
+                        </label>
+                    </div>
+                </div>
+                <div class="remove-button-div flex-row">
+                    <button type="button" class="remove-button">Remove</button>
+                </div>
+            </form>
+            <!-- AI -->
+            <form id="ai-player-template" class="ai-player player" onsubmit="return false;">
+                <input type="hidden" name="player-type" value="ai" />
+                <div class="player-header"><h3 class="player-title">Player 1</h3></div>
+                <div class="player-type-header"><h4>AI</h4></div>
+                <div>
+                    <label
+                        >Type:
+                        <select class="setup-ai-type" name="type">
+                            <option value="standard">Standard</option>
+                            <option value="nice">Nice</option>
+                            <!-- <option value="centre">Centering</option> -->
+                            <!-- <option value="forecast">Forecaster</option> -->
+                        </select>
+                    </label>
+                </div>
+                <div>
+                    <label
+                        >Level:
+                        <select class="setup-ai-level" name="level">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3" selected="selected">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="remove-button-div flex-row">
+                    <button type="button" class="remove-button">Remove</button>
+                </div>
+            </form>
+            <!-- AI Advanced -->
+        </div>
+
+        <!-- Game -->
+        <div id="game" class="vertical-container">
+            <div id="opponent-boards" class="horizontal-container"></div>
+            <div id="factories" class="horizontal-container"></div>
+            <div id="game-end" class="flex-column horizontal-container">
+                <div><h2 id="game-end-text">End of Game</h2></div>
+                <div id="game-end-buttons" class="flex-row">
+                    <button id="replay-button">Replay</button>
+                    <button id="rematch-button">Rematch</button>
+                    <button id="new-game-button">New Game</button>
+                </div>
+            </div>
+            <div id="player-boards" class="horizontal-container"></div>
+            <!-- <div id="instructions" class="horizontal-container">
+            <h1>Instructions</h1>
+        </div> -->
+        </div>
+    </body>
+</html>
