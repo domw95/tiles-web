@@ -48,6 +48,9 @@ export class GuiGame {
         this.display.update_for_end_of_round(this.gamestate);
         // Add callbacks to factory tiles
         this.assign_factory_callbacks();
+
+        // @ts-ignore
+        plausible("Tiles Game", { props: { type: "Replay" } });
     }
 
     // Play with same players
@@ -61,11 +64,16 @@ export class GuiGame {
         this.display.update_for_end_of_round(this.gamestate);
         // Add callbacks to factory tiles
         this.assign_factory_callbacks();
+
+        // @ts-ignore
+        plausible("Tiles Game", { props: { type: "Rematch" } });
     }
 
     // Start from scratch
     new_game() {
         console.log("New Game");
+        // @ts-ignore
+        plausible("Tiles Game", { props: { type: "New" } });
         location.reload();
     }
 
@@ -225,7 +233,66 @@ export class GuiGame {
                 break;
             case State.endOfTurns:
                 // Either new round with player turn or end of game after this
-                this.gamestate.endRound();
+                if (!this.gamestate.endRound()) {
+                    //  Game has finished
+                    const player0 = this.players[0];
+                    const player1 = this.players[1];
+                    let matchup = "";
+                    if (player0.type == PlayerType.HUMAN) {
+                        if (player1.type == PlayerType.HUMAN) {
+                            matchup = "Human v Human";
+                        } else {
+                            matchup = "Human v AI";
+                        }
+                    } else {
+                        if (player1.type == PlayerType.HUMAN) {
+                            matchup = "AI v Human";
+                        } else {
+                            matchup = "AI v AI";
+                        }
+                    }
+                    // Winner type
+                    let type = "Draw";
+                    if (this.gamestate.winner.length == 1) {
+                        const id = this.gamestate.winner[0];
+                        const winner = this.players[id];
+
+                        switch (winner.type) {
+                            case PlayerType.HUMAN:
+                                type = "Human";
+                                break;
+                            case PlayerType.AI:
+                                type = "AI";
+                                break;
+                        }
+                        const winner_score = this.gamestate.playerBoards[id].score;
+                        const loser_score = this.gamestate.playerBoards[id].score;
+                        const margin = winner_score - loser_score;
+                        // Check matchup type
+
+                        // @ts-ignore
+                        plausible("Tiles Game Finish", {
+                            props: {
+                                winner: winner.name,
+                                opponent: this.players[1].name,
+                                winner_type: type,
+                                margin: margin,
+                                matchup: matchup,
+                            },
+                        });
+                    } else {
+                        // @ts-ignore
+                        plausible("Tiles Game Finish", {
+                            props: {
+                                winner: "",
+                                opponent: this.players[1].name,
+                                winner_type: type,
+                                margin: 0,
+                                matchup: matchup,
+                            },
+                        });
+                    }
+                }
                 this.display.update_for_end_of_round(this.gamestate);
                 this.assign_factory_callbacks();
                 break;

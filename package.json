@@ -10,6 +10,7 @@
         "build:dev": "webpack --mode=development",
         "build:prod": "webpack --mode=production --node-env=production",
         "deploy": "scp dist/* airhaven:/var/www/html/games/tiles",
+        "deployTest": "npm run build && scp dist/* airhaven:/var/www/html/games/tilestest",
         "watch": "webpack --watch",
         "serve": "webpack serve"
     },
@@ -41,7 +42,7 @@
         "workbox-webpack-plugin": "^6.5.4"
     },
     "dependencies": {
-        "azul-tiles": "^1.0.2",
+        "azul-tiles": "^2.0.7",
         "minimaxer": "^1.0.0"
     }
 }
