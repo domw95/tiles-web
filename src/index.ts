@@ -15,6 +15,16 @@ import { GuiGame } from "./game";
 // global variable
 var gui_game: GuiGame;
 
+// Plausible event tracking
+// @ts-ignore
+window.plausible =
+    // @ts-ignore
+    window.plausible ||
+    function () {
+        // @ts-ignore
+        (window.plausible.q = window.plausible.q || []).push(arguments);
+    };
+
 // On document load, hide game
 // and add human and AI
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -45,4 +55,7 @@ document.getElementById("start-button")?.addEventListener("click", (event) => {
 
     // Start the game
     gui_game = new GuiGame(players);
+
+    // @ts-ignore
+    plausible("Tiles Game", { props: { type: "Start" } });
 });

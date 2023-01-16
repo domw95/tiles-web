@@ -3,7 +3,11 @@
     <head>
         <meta name="viewport" content="width=device-width,initial-scale=1.0" />
         <!-- <link rel="stylesheet" href="gui.css"> -->
-        <script defer data-domain="domwil.co.uk" src="https://plausible.domwil.co.uk/js/script.js"></script>
+        <script
+            defer
+            data-domain="domwil.co.uk"
+            src="https://plausible.domwil.co.uk/js/script.tagged-events.js"
+        ></script>
 
         <link rel="apple-touch-icon" sizes="180x180" href="/games/tiles/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/games/tiles/favicon-32x32.png" />
@@ -37,7 +41,10 @@
             <div id="instruction" class="border">
                 <ul>
                     <li>
-                        <a href="https://www.ultraboardgames.com/azul/game-rules.php" target="_blank"
+                        <a
+                            class="plausible-event-name=rules"
+                            href="https://www.ultraboardgames.com/azul/game-rules.php"
+                            target="_blank"
                             >The Rules can be found here</a
                         >
                     </li>
@@ -80,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="Tiles">
                 <button id="start-button">Start</button>
             </div>
         </div>
@@ -115,7 +122,7 @@
                         <select class="setup-ai-type" name="type">
                             <option value="standard">Standard</option>
                             <option value="nice">Nice</option>
-                            <option value="centre">Centering</option>
+                            <!-- <option value="centre">Centering</option> -->
                             <!-- <option value="forecast">Forecaster</option> -->
                         </select>
                     </label>
