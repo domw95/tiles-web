@@ -85,12 +85,31 @@ const AI_LEVEL = [10, 50, 100, 500, 1000];
 
 function process_ai_player(data: FormData, id: number): PlayerInterface {
     const level = parseInt(data.get("level") as string);
+    const type = data.get("type") as string;
+
     const opts = new AIOpts();
+
     opts.genBased = true;
     opts.mode = AIMode.TIME;
     opts.timeout = AI_LEVEL[level - 1];
     opts.pruning = PruningType.ALPHA_BETA;
+    opts.print = true;
     opts.clone = CloneMethod.SMART;
+    switch (type) {
+        case "standard":
+            opts.eval = EvalMethod.STANDARD;
+            break;
+        case "centre":
+            opts.eval = EvalMethod.CENTRE;
+            break;
+        case "nice":
+            opts.eval = EvalMethod.NICE;
+            break;
+        case "forecast":
+            opts.eval = EvalMethod.FORECAST;
+            break;
+    }
+
     const ai = new AI(id, opts);
     ai.name = "A.I L" + level;
     return ai;
