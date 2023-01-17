@@ -9,7 +9,7 @@
         "build": "webpack --mode=production --node-env=production",
         "build:dev": "webpack --mode=development",
         "build:prod": "webpack --mode=production --node-env=production",
-        "deploy": "scp dist/* airhaven:/var/www/html/games/tiles",
+        "deploy": "npm run build && scp dist/* airhaven:/var/www/html/games/tiles",
         "deployTest": "npm run build && scp dist/* airhaven:/var/www/html/games/tilestest",
         "watch": "webpack --watch",
         "serve": "webpack serve"
