@@ -267,9 +267,7 @@ export class GuiGame {
                                 type = "AI";
                                 break;
                         }
-                        const winner_score = this.gamestate.playerBoards[id].score;
-                        const loser_score = this.gamestate.playerBoards[id ^ 1].score;
-                        const margin = winner_score - loser_score;
+                        const margin = this.gamestate.playerBoards[0].score - this.gamestate.playerBoards[1].score;
                         // Check matchup type
 
                         // @ts-ignore
