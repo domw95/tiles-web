@@ -95,23 +95,28 @@ function process_ai_player(data: FormData, id: number): PlayerInterface {
     opts.pruning = PruningType.ALPHA_BETA;
     opts.print = true;
     opts.clone = CloneMethod.SMART;
+    let name = "A.I ";
     switch (type) {
         case "standard":
             opts.eval = EvalMethod.STANDARD;
+            name += "S ";
             break;
         case "centre":
             opts.eval = EvalMethod.CENTRE;
+            name += "C ";
             break;
         case "nice":
             opts.eval = EvalMethod.NICE;
+            name += "N ";
             break;
         case "forecast":
             opts.eval = EvalMethod.FORECAST;
+            name += "F ";
             break;
     }
-
+    name += "L" + level.toString();
     const ai = new AI(id, opts);
-    ai.name = "A.I L" + level;
+    ai.name = name;
     return ai;
 }
 

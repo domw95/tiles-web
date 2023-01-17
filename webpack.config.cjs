@@ -11,6 +11,7 @@ const stylesHandler = "style-loader";
 const config = {
     entry: "./src/index.ts",
     output: {
+        filename: "[name].[contenthash].js",
         path: path.resolve(__dirname, "dist"),
     },
     devServer: {
@@ -20,6 +21,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/index.html",
+            hash: true,
         }),
 
         // Add your plugins here
