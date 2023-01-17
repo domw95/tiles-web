@@ -237,6 +237,8 @@ export class GuiGame {
                     //  Game has finished
                     const player0 = this.players[0];
                     const player1 = this.players[1];
+                    const player = player0.name;
+                    const opponent = player1.name;
                     let matchup = "";
                     if (player0.type == PlayerType.HUMAN) {
                         if (player1.type == PlayerType.HUMAN) {
@@ -266,7 +268,7 @@ export class GuiGame {
                                 break;
                         }
                         const winner_score = this.gamestate.playerBoards[id].score;
-                        const loser_score = this.gamestate.playerBoards[id].score;
+                        const loser_score = this.gamestate.playerBoards[id ^ 1].score;
                         const margin = winner_score - loser_score;
                         // Check matchup type
 
@@ -274,7 +276,8 @@ export class GuiGame {
                         plausible("Tiles Game Finish", {
                             props: {
                                 winner: winner.name,
-                                opponent: this.players[1].name,
+                                player: player,
+                                opponent: opponent,
                                 winner_type: type,
                                 margin: margin,
                                 matchup: matchup,
@@ -285,7 +288,8 @@ export class GuiGame {
                         plausible("Tiles Game Finish", {
                             props: {
                                 winner: "",
-                                opponent: this.players[1].name,
+                                player: player,
+                                opponent: opponent,
                                 winner_type: type,
                                 margin: 0,
                                 matchup: matchup,
