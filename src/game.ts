@@ -39,7 +39,9 @@ export class GuiGame {
     replay() {
         console.log("Replay");
         // Create game with same seed
-        this.gamestate = new GameState(this.gamestate.seed);
+        const seed = this.gamestate.seed;
+        this.gamestate = new GameState();
+        this.gamestate.seed = seed;
         // Start game
         this.gamestate.newGame(this.players.length);
         // Reset display
