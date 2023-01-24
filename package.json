@@ -42,7 +42,7 @@
         "workbox-webpack-plugin": "^6.5.4"
     },
     "dependencies": {
-        "azul-tiles": "^2.0.7",
+        "azul-tiles": "^3.0.0",
         "minimaxer": "^1.0.0"
     }
 }
