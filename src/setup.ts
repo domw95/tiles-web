@@ -1,4 +1,4 @@
-import { AIOpts, PlayerInterface, AI, AIMode, EvalMethod, CloneMethod, PruningType } from "azul-tiles";
+import { AIOpts, PlayerInterface, AI, PruningType, SearchMethod, SortMethod } from "azul-tiles";
 import { Human } from "./game";
 
 export function add_player(type: string): void {
@@ -81,37 +81,28 @@ export function validate_options(): boolean {
     return true;
 }
 
-const AI_LEVEL = [10, 50, 100, 500, 1000];
+const AI_LEVEL = [10, 100, 1000];
 
 function process_ai_player(data: FormData, id: number): PlayerInterface {
     const level = parseInt(data.get("level") as string);
-    const type = data.get("type") as string;
+    const type = data.get("personality") as string;
 
     const opts = new AIOpts();
-
-    opts.genBased = true;
-    opts.mode = AIMode.TIME;
     opts.timeout = AI_LEVEL[level - 1];
+    // opts.optimal = true;
+    opts.presort = true;
+    opts.genBased = true;
     opts.pruning = PruningType.ALPHA_BETA;
+    opts.method = SearchMethod.TIME;
     opts.print = true;
-    opts.clone = CloneMethod.SMART;
     let name = "A.I ";
     switch (type) {
-        case "standard":
-            opts.eval = EvalMethod.STANDARD;
-            name += "S ";
-            break;
-        case "centre":
-            opts.eval = EvalMethod.CENTRE;
-            name += "C ";
-            break;
-        case "nice":
-            opts.eval = EvalMethod.NICE;
-            name += "N ";
-            break;
-        case "forecast":
-            opts.eval = EvalMethod.FORECAST;
-            name += "F ";
+        case "tactical":
+            opts.config.centre = 0.1;
+            opts.config.firstTileValue = 1.5;
+            opts.config.movePruning = true;
+            opts.sortMethod = SortMethod.BUBBLE_EFFICIENT;
+            name += "T ";
             break;
     }
     name += "L" + level.toString();
