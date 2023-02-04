@@ -6,6 +6,7 @@ const ATTR = {
     tile_colour: "tile-colour",
     highlight: "highlight",
     border_colour: "border-colour",
+    shadow: "shadow",
 };
 
 const CLASS = {
@@ -340,7 +341,8 @@ export class GuiDisplay {
         if (move.line < 5) {
             this.update_line(move.player, move.line, gamestate);
         }
-        this.update_floor(move.player, gamestate);
+        this.update_board(move.player, gamestate);
+        // this.update_floor(move.player, gamestate);
         this.highlight_board(gamestate.activePlayer);
     }
 
@@ -380,18 +382,27 @@ export class GuiDisplay {
 
         // Update Walls
         const wall = gamestate.playerBoards[player_id].wall;
+        const shadowWall = gamestate.playerBoards[player_id].shadowWall;
         const wall_elem = document.getElementById("wall-" + player_id) as HTMLElement;
         [...wall_elem.children].forEach((row, row_ind) => {
             [...row.children].forEach((tile, col_ind) => {
-                tile.setAttribute(ATTR.tile_colour, wall[row_ind][col_ind].toString());
+                const wall_tile = wall[row_ind][col_ind];
+                const shadow_tile = shadowWall[row_ind][col_ind];
+                if (wall_tile != Tile.Null) {
+                    tile.setAttribute(ATTR.tile_colour, wall_tile.toString());
+                    tile.removeAttribute(ATTR.shadow);
+                } else if (shadow_tile != Tile.Null) {
+                    tile.setAttribute(ATTR.tile_colour, shadow_tile.toString());
+                    tile.setAttribute(ATTR.shadow, "");
+                }
             });
         });
-
         // clear floor
-        const floor = document.getElementById("floor-" + player_id) as HTMLElement;
-        [...floor.children].forEach((tile) => {
-            tile.removeAttribute(ATTR.tile_colour);
-        });
+        // const floor = document.getElementById("floor-" + player_id) as HTMLElement;
+        // [...floor.children].forEach((tile) => {
+        //     tile.removeAttribute(ATTR.tile_colour);
+        // });
+        this.update_floor(player_id, gamestate);
 
         // Update score
         document.getElementById("score-" + player_id)!.innerHTML = gamestate.playerBoards[player_id].score.toString();
@@ -467,12 +478,14 @@ export class GuiDisplay {
     update_floor(player_id: number, gamestate: GameState): void {
         const floor = document.getElementById("floor-" + player_id) as HTMLElement;
         const tiles = [...floor.children] as Array<HTMLElement>;
+        const pb_floor = gamestate.playerBoards[player_id].floor;
 
-        gamestate.playerBoards[player_id].floor.forEach((tile, ind) => {
-            if (ind >= 7) {
-                return;
+        tiles.forEach((tile, ind) => {
+            if (pb_floor[ind] !== undefined) {
+                tile.setAttribute(ATTR.tile_colour, pb_floor[ind].toString());
+            } else {
+                tile.removeAttribute(ATTR.tile_colour);
             }
-            tiles[ind].setAttribute(ATTR.tile_colour, tile.toString());
         });
     }
 }

@@ -1,13 +1,13 @@
-import { AIOpts, PlayerInterface, AI, PruningType, SearchMethod, SortMethod } from "azul-tiles";
+import { AIOpts, PlayerInterface, MultiAI, AI, PruningType, SearchMethod, SortMethod } from "azul-tiles";
 import { Human } from "./game";
 
 export function add_player(type: string): void {
     // Get element that holds players
     const players = document.getElementById("players") as HTMLElement;
-    if (players.children.length == 2) {
-        alert("Sorry, only 2 player games currently supported");
-        return;
-    }
+    // if (players.children.length == 2) {
+    //     alert("Sorry, only 2 player games currently supported");
+    //     return;
+    // }
 
     // Create id
     const player_id = players.children.length + 1;
@@ -71,9 +71,9 @@ export function validate_players(players: Array<PlayerInterface>): {
     valid: boolean;
     message: string;
 } {
-    if (players.length != 2) {
-        return { valid: false, message: "Game requires 2 players" };
-    }
+    // if (players.length != 2) {
+    //     return { valid: false, message: "Game requires 2 players" };
+    // }
     return { valid: true, message: "" };
 }
 
@@ -106,7 +106,7 @@ function process_ai_player(data: FormData, id: number): PlayerInterface {
             break;
     }
     name += "L" + level.toString();
-    const ai = new AI(id, opts);
+    const ai = new MultiAI(id, opts);
     ai.name = name;
     return ai;
 }
