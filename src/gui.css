@@ -1,44 +1,44 @@
 /* Variables */
 :root {
-  /* Tile colours */
-  --tile-colour-0: blue;
-  --tile-colour-1: rgb(228, 228, 18);
-  --tile-colour-2: red;
-  --tile-colour-3: black;
-  --tile-colour-4: white;
-  --tile-colour-5: purple;
-  --tile-colour-6: transparent;
+    /* Tile colours */
+    --tile-colour-0: blue;
+    --tile-colour-1: rgb(228, 228, 18);
+    --tile-colour-2: red;
+    --tile-colour-3: black;
+    --tile-colour-4: white;
+    --tile-colour-5: purple;
+    --tile-colour-6: transparent;
 
-  /* Background colour */
-  --bg-colour: #417272;
-  /* Highlight Colour */
-  --highlight-colour: rgb(240, 22, 240);
+    /* Background colour */
+    --bg-colour: #417272;
+    /* Highlight Colour */
+    --highlight-colour: rgb(240, 22, 240);
 }
 
 /* Generic classes for common  */
 .flex-row {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 }
 
 .flex-column {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .border {
-  border-color: black;
-  border-style: solid;
-  border-width: 2px;
-  box-sizing: border-box;
-  border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 
 /* Global stuff */
 body {
-  background-color: var(--bg-colour);
-  margin: 0;
-  min-height: 100vh;
+    background-color: var(--bg-colour);
+    margin: 0;
+    min-height: 100vh;
 }
 
 body,
@@ -46,203 +46,203 @@ button,
 input,
 select,
 option {
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
 }
 /* Make buttons big enough */
 button,
 input,
 select,
 option {
-  border-color: black;
-  border-style: solid;
-  border-width: 2px;
-  box-sizing: border-box;
-  border-radius: 5px;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
 button {
-  min-width: 40px;
-  min-height: 40px;
-  padding-left: 10px;
-  padding-right: 10px;
+    min-width: 40px;
+    min-height: 40px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 /* Start page */
 
 h1,
 h2 {
-  margin: 10px;
+    margin: 10px;
 }
 
 /* Mak instruction text a bit nicer */
 #instruction {
-  padding: 10px;
+    padding: 10px;
 }
 
 /* Limit size of start page to fit nicely on all screens */
 #start {
-  align-items: center;
-  width: 95%;
-  max-width: 480px;
-  margin: auto;
+    align-items: center;
+    width: 95%;
+    max-width: 480px;
+    margin: auto;
 }
 #setup,
 #setup-box,
 #players {
-  align-items: center;
+    align-items: center;
 }
 
 /* Hide player templates */
 #templates {
-  display: none;
+    display: none;
 }
 
 /* Hide all remove buttons but the last players */
 .remove-button {
-  display: none;
+    display: none;
 }
 
 #setup .player:last-child .remove-button {
-  display: block;
+    display: block;
 }
 
 /* Ensure setup fills width */
 #setup,
 #setup-box {
-  width: 100%;
+    width: 100%;
 }
 
 .player {
-  width: 95%;
-  border-bottom: 2px;
-  border-bottom-style: solid;
-  align-items: flex-end;
+    width: 95%;
+    border-bottom: 2px;
+    border-bottom-style: solid;
+    align-items: flex-end;
 }
 
 /* Remove margins from text */
 #setup-box h3,
 #setup-box h4 {
-  margin: 0;
+    margin: 0;
 }
 /* Position player, type and Add player on own row */
 .player-header,
 .player-type-header,
 #add-player-string {
-  width: 100%;
-  margin: auto;
-  text-align: center;
+    width: 100%;
+    margin: auto;
+    text-align: center;
 }
 /* Show player with header on top, and other items centred below */
 .player,
 #add-new {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: baseline;
-  padding-top: 5px;
-  padding-bottom: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: baseline;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .player > div,
 #add-new > div {
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0;
 }
 
 /* Centre remove button on final row */
 .remove-button-div {
-  width: 100%;
-  margin: auto;
-  justify-content: center;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
 }
 
 /* Start button and buttons */
 #start-button {
-  font-size: x-large;
-  margin: 20px;
-  padding: 10px;
+    font-size: x-large;
+    margin: 20px;
+    padding: 10px;
 }
 button {
-  height: fit-content;
-  border-radius: 8px;
+    height: fit-content;
+    border-radius: 8px;
 }
 
 /* Main Game */
 .vertical-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .horizontal-container {
-  /* https://bhch.github.io/posts/2021/04/centring-flex-items-and-allowing-overflow-scroll/ */
-  display: flex;
-  overflow: auto;
-  margin: 0;
+    /* https://bhch.github.io/posts/2021/04/centring-flex-items-and-allowing-overflow-scroll/ */
+    display: flex;
+    overflow: auto;
+    margin: 0;
 }
 
 .horizontal-container .horizontal-item:first-child {
-  margin-left: auto;
+    margin-left: auto;
 }
 
 .horizontal-container .horizontal-item:last-child {
-  margin-right: auto;
+    margin-right: auto;
 }
 
 #opponent-boards,
 #factories,
 #player-boards {
-  padding-left: 1vw;
-  padding-right: 1vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
 }
 
 /* Player boards */
 
 .tile {
-  aspect-ratio: 1/1;
+    aspect-ratio: 1/1;
 }
 
 /* 10x tile width + 20x tile margin + 4 * margin */
 /* Mobile size cutoff */
 /* All mobile sizes fit 1 board to screen regardless */
 @media (max-width: 480px) {
-  .board-tile {
-    margin: 0.4vw;
-    width: 7.5vw;
-    font-size: 5vw;
-  }
+    .board-tile {
+        margin: 0.4vw;
+        width: 7.5vw;
+        font-size: 5vw;
+    }
 
-  .board-element {
-    margin: 3.5vw;
-  }
-  .score {
-    font-size: 11.25vw;
-  }
-  .name {
-    font-size: 6vw;
-  }
+    .board-element {
+        margin: 3.5vw;
+    }
+    .score {
+        font-size: 11.25vw;
+    }
+    .name {
+        font-size: 6vw;
+    }
 }
 
 /* Tablet size cutoff */
 /* Maintain 480px board size for tablets */
 /* @media (max-width:768px) and (min-width:481px){ */
 @media (min-width: 481px) {
-  .board-tile {
-    margin: 2.4px;
-    width: 36px;
-    font-size: 24px;
-  }
-  .board-element {
-    margin: 16px;
-  }
-  .score {
-    font-size: 54px;
-  }
-  .name {
-    font-size: 30px;
-  }
+    .board-tile {
+        margin: 2.4px;
+        width: 36px;
+        font-size: 24px;
+    }
+    .board-element {
+        margin: 16px;
+    }
+    .score {
+        font-size: 54px;
+    }
+    .name {
+        font-size: 30px;
+    }
 }
 
 /* Laptop size cutoff */
@@ -266,129 +266,133 @@ button {
 } */
 
 .board-bottom {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 .line-container {
-  display: flex;
-  flex-direction: column;
-  justify-items: end;
+    display: flex;
+    flex-direction: column;
+    justify-items: end;
 }
 
 .line {
-  display: flex;
-  flex-direction: row-reverse;
-  /* justify-content: flex-end; */
-  /* width:fit-content; */
+    display: flex;
+    flex-direction: row-reverse;
+    /* justify-content: flex-end; */
+    /* width:fit-content; */
 }
 
 .line-top {
-  align-content: space-between;
-  justify-content: flex-end;
+    align-content: space-between;
+    justify-content: flex-end;
 }
 
 .score {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 /* Factory Layout and tiles */
 .factory {
-  display: grid;
-  grid-template-columns: 50% 50%;
-  padding: 5px;
-  margin-right: 10px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    padding: 5px;
+    margin-right: 10px;
 }
 
 .board {
-  margin-top: 10px;
-  margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #factory-0 {
-  grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 33% 33% 33%;
 }
 
 .factory-tile {
-  width: 48px;
-  margin: 4px;
-  border-width: 4px;
-  border-color: black;
+    width: 48px;
+    margin: 4px;
+    border-width: 4px;
+    border-color: black;
 }
 
 /* Tile colours, highlight  and text */
 .tile {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+/* Shadow wall highlight */
+.tile[shadow] {
+    opacity: 0.3;
+}
 .tile[tile-colour="0"] {
-  background-color: var(--tile-colour-0);
+    background-color: var(--tile-colour-0);
 }
 .tile[tile-colour="1"] {
-  background-color: var(--tile-colour-1);
+    background-color: var(--tile-colour-1);
 }
 .tile[tile-colour="2"] {
-  background-color: var(--tile-colour-2);
+    background-color: var(--tile-colour-2);
 }
 .tile[tile-colour="3"] {
-  background-color: var(--tile-colour-3);
-  color: white;
+    background-color: var(--tile-colour-3);
+    color: white;
 }
 .tile[tile-colour="4"] {
-  background-color: var(--tile-colour-4);
+    background-color: var(--tile-colour-4);
 }
 .tile[tile-colour="5"] {
-  background-color: var(--tile-colour-5);
+    background-color: var(--tile-colour-5);
 }
 .tile[tile-colour="-1"] {
-  background-color: var(--tile-colour-6);
+    background-color: var(--tile-colour-6);
 }
 
 .tile[border-colour="0"] {
-  border-color: var(--tile-colour-0);
+    border-color: var(--tile-colour-0);
 }
 .tile[border-colour="1"] {
-  border-color: var(--tile-colour-1);
+    border-color: var(--tile-colour-1);
 }
 .tile[border-colour="2"] {
-  border-color: var(--tile-colour-2);
+    border-color: var(--tile-colour-2);
 }
 .tile[border-colour="3"] {
-  border-color: var(--tile-colour-3);
+    border-color: var(--tile-colour-3);
 }
 .tile[border-colour="4"] {
-  border-color: var(--tile-colour-4);
+    border-color: var(--tile-colour-4);
 }
 .tile[border-colour="5"] {
-  border-color: var(--tile-colour-5);
+    border-color: var(--tile-colour-5);
 }
 
 .tile[highlight],
 .board[highlight] {
-  border-color: var(--highlight-colour);
-  /* border-width: 4px; */
+    border-color: var(--highlight-colour);
+    /* border-width: 4px; */
 }
 
 /* End of game */
 #game-end {
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #game-end-buttons > * {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
 }
