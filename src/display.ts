@@ -394,14 +394,12 @@ export class GuiDisplay {
                 } else if (shadow_tile != Tile.Null) {
                     tile.setAttribute(ATTR.tile_colour, shadow_tile.toString());
                     tile.setAttribute(ATTR.shadow, "");
+                } else {
+                    tile.removeAttribute(ATTR.tile_colour);
+                    tile.removeAttribute(ATTR.shadow);
                 }
             });
         });
-        // clear floor
-        // const floor = document.getElementById("floor-" + player_id) as HTMLElement;
-        // [...floor.children].forEach((tile) => {
-        //     tile.removeAttribute(ATTR.tile_colour);
-        // });
         this.update_floor(player_id, gamestate);
 
         // Update score

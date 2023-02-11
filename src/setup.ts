@@ -88,25 +88,37 @@ function process_ai_player(data: FormData, id: number): PlayerInterface {
     const type = data.get("personality") as string;
 
     const opts = new AIOpts();
-    opts.timeout = AI_LEVEL[level - 1];
-    // opts.optimal = true;
-    opts.presort = true;
-    opts.genBased = true;
-    opts.pruning = PruningType.ALPHA_BETA;
+    // opts.depth = 3;
     opts.method = SearchMethod.TIME;
+    opts.timeout = 1000;
+    opts.optimal = true;
+    opts.config.movePruning;
+    // opts.config.moveAllFill = true;
+    opts.config.forecast = 0.1;
+    // opts.config.moveNoFloor = true;
+    opts.config.firstTileValue = 1.5;
+    // opts.config.centre = 0.01;
+    opts.config.quickEval = true;
+    opts.config.negativeScore = true;
     opts.print = true;
+    // opts.optimal = true;
+    // opts.randomBest = true;
+
     let name = "A.I ";
     switch (type) {
         case "tactical":
-            opts.config.centre = 0.1;
+            // opts.config.centre = 0.01;
             opts.config.firstTileValue = 1.5;
             opts.config.movePruning = true;
+            opts.config.quickEval = true;
+            // opts.config.forecast = 0.01;
             opts.sortMethod = SortMethod.BUBBLE_EFFICIENT;
             name += "T ";
             break;
     }
     name += "L" + level.toString();
-    const ai = new MultiAI(id, opts);
+    // const ai = new MultiAI(id, opts);
+    const ai = new AI(id, opts);
     ai.name = name;
     return ai;
 }
