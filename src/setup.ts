@@ -1,13 +1,13 @@
-import { AIOpts, PlayerInterface, AI, AIMode, EvalMethod, CloneMethod, PruningType } from "azul-tiles";
+import { AIOpts, PlayerInterface, MultiAI, AI, PruningType, SearchMethod, SortMethod } from "azul-tiles";
 import { Human } from "./game";
 
 export function add_player(type: string): void {
     // Get element that holds players
     const players = document.getElementById("players") as HTMLElement;
-    if (players.children.length == 2) {
-        alert("Sorry, only 2 player games currently supported");
-        return;
-    }
+    // if (players.children.length == 2) {
+    //     alert("Sorry, only 2 player games currently supported");
+    //     return;
+    // }
 
     // Create id
     const player_id = players.children.length + 1;
@@ -71,9 +71,9 @@ export function validate_players(players: Array<PlayerInterface>): {
     valid: boolean;
     message: string;
 } {
-    if (players.length != 2) {
-        return { valid: false, message: "Game requires 2 players" };
-    }
+    // if (players.length != 2) {
+    //     return { valid: false, message: "Game requires 2 players" };
+    // }
     return { valid: true, message: "" };
 }
 
@@ -81,40 +81,43 @@ export function validate_options(): boolean {
     return true;
 }
 
-const AI_LEVEL = [10, 50, 100, 500, 1000];
+const AI_LEVEL = [10, 100, 1000];
 
 function process_ai_player(data: FormData, id: number): PlayerInterface {
     const level = parseInt(data.get("level") as string);
-    const type = data.get("type") as string;
+    const type = data.get("personality") as string;
 
     const opts = new AIOpts();
-
-    opts.genBased = true;
-    opts.mode = AIMode.TIME;
-    opts.timeout = AI_LEVEL[level - 1];
-    opts.pruning = PruningType.ALPHA_BETA;
+    // opts.depth = 3;
+    opts.method = SearchMethod.TIME;
+    opts.timeout = 1000;
+    opts.optimal = true;
+    opts.config.movePruning;
+    // opts.config.moveAllFill = true;
+    opts.config.forecast = 0.1;
+    // opts.config.moveNoFloor = true;
+    opts.config.firstTileValue = 1.5;
+    // opts.config.centre = 0.01;
+    opts.config.quickEval = true;
+    opts.config.negativeScore = true;
     opts.print = true;
-    opts.clone = CloneMethod.SMART;
+    // opts.optimal = true;
+    // opts.randomBest = true;
+
     let name = "A.I ";
     switch (type) {
-        case "standard":
-            opts.eval = EvalMethod.STANDARD;
-            name += "S ";
-            break;
-        case "centre":
-            opts.eval = EvalMethod.CENTRE;
-            name += "C ";
-            break;
-        case "nice":
-            opts.eval = EvalMethod.NICE;
-            name += "N ";
-            break;
-        case "forecast":
-            opts.eval = EvalMethod.FORECAST;
-            name += "F ";
+        case "tactical":
+            // opts.config.centre = 0.01;
+            opts.config.firstTileValue = 1.5;
+            opts.config.movePruning = true;
+            opts.config.quickEval = true;
+            // opts.config.forecast = 0.01;
+            opts.sortMethod = SortMethod.BUBBLE_EFFICIENT;
+            name += "T ";
             break;
     }
     name += "L" + level.toString();
+    // const ai = new MultiAI(id, opts);
     const ai = new AI(id, opts);
     ai.name = name;
     return ai;

@@ -1,5 +1,5 @@
 // Entry point for web gui
-// Load required resources (wepback)
+// Load required resources (webpack)
 
 import "./gui.css";
 
