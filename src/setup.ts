@@ -1,13 +1,14 @@
 import { AIOpts, PlayerInterface, MultiAI, AI, PruningType, SearchMethod, SortMethod } from "azul-tiles";
+import { Options } from "./options";
 import { Human } from "./game";
 
 export function add_player(type: string): void {
     // Get element that holds players
     const players = document.getElementById("players") as HTMLElement;
-    // if (players.children.length == 2) {
-    //     alert("Sorry, only 2 player games currently supported");
-    //     return;
-    // }
+    if (players.children.length == 2) {
+        alert("Sorry, only 2 player games currently supported");
+        return;
+    }
 
     // Create id
     const player_id = players.children.length + 1;
@@ -42,7 +43,18 @@ export function add_player(type: string): void {
     //  player_header.after(player)
 }
 
-export function get_options() {}
+export function get_options() {
+    // Get data from form
+    const data = new FormData(document.getElementById("options-form") as HTMLFormElement);
+    // Create options
+    const options = new Options();
+    // Populate options and return
+    options.shadowTiles = data.get("shadow-tiles") == "on" ? true : false;
+    options.autoplay = data.get("auto-play") == "on" ? true : false;
+    console.log(options);
+
+    return options;
+}
 
 export function get_players(): Array<PlayerInterface> {
     // array to hold players for game creation
@@ -81,42 +93,100 @@ export function validate_options(): boolean {
     return true;
 }
 
-const AI_LEVEL = [10, 100, 1000];
+// const AI_LEVEL = [10, 100, 1000];
 
 function process_ai_player(data: FormData, id: number): PlayerInterface {
-    const level = parseInt(data.get("level") as string);
-    const type = data.get("personality") as string;
+    // const level = parseInt(data.get("level") as string);
+    const personality = data.get("personality") as string;
 
     const opts = new AIOpts();
-    // opts.depth = 3;
-    opts.method = SearchMethod.TIME;
-    opts.timeout = 1000;
-    opts.optimal = true;
-    opts.config.movePruning;
-    // opts.config.moveAllFill = true;
-    opts.config.forecast = 0.1;
-    // opts.config.moveNoFloor = true;
-    opts.config.firstTileValue = 1.5;
-    // opts.config.centre = 0.01;
-    opts.config.quickEval = true;
-    opts.config.negativeScore = true;
     opts.print = true;
-    // opts.optimal = true;
-    // opts.randomBest = true;
-
     let name = "A.I ";
-    switch (type) {
-        case "tactical":
-            // opts.config.centre = 0.01;
-            opts.config.firstTileValue = 1.5;
-            opts.config.movePruning = true;
+    switch (personality) {
+        case "1":
+            // Noob player
+            opts.depth = 1;
+            opts.method = SearchMethod.DEPTH;
+            opts.randomWeight = 1.1;
+            opts.config.moveAllFill = true;
+            opts.config.moveNoFloor = true;
+            name += "N";
+            break;
+        case "2":
+            // Beginner
+            opts.depth = 1;
+            opts.method = SearchMethod.DEPTH;
+            opts.randomWeight = 3;
+            opts.config.moveAllFill = true;
+            opts.config.moveNoFloor = true;
+            opts.config.firstTileValue = 0.5;
+            name += "B";
+            break;
+        case "3":
+            // Intermediate
+            opts.depth = 3;
+            opts.method = SearchMethod.TIME;
+            opts.timeout = 100;
+            opts.randomWeight = 5;
+            opts.config.moveAllFill = true;
+            opts.config.friendly = true;
+            opts.config.moveNoFloor = true;
+            opts.config.firstTileValue = 0.5;
             opts.config.quickEval = true;
-            // opts.config.forecast = 0.01;
-            opts.sortMethod = SortMethod.BUBBLE_EFFICIENT;
-            name += "T ";
+            opts.config.negativeScore = true;
+            name += "I";
+            break;
+        case "4":
+            // Competitive
+            opts.depth = 3;
+            opts.method = SearchMethod.TIME;
+            opts.timeout = 100;
+            opts.randomWeight = 10;
+            opts.config.moveAllFill = true;
+            opts.config.firstTileValue = 0.5;
+            opts.config.centre = 0.1;
+            opts.config.quickEval = true;
+            opts.config.negativeScore = true;
+            name += "C";
+            break;
+        case "5":
+            // Tactical
+            opts.depth = 3;
+            opts.method = SearchMethod.TIME;
+            opts.timeout = 100;
+            opts.optimal = true;
+            opts.config.movePruning;
+            opts.config.forecast = 0.001;
+            opts.config.firstTileValue = 1.5;
+            opts.config.quickEval = true;
+            opts.config.negativeScore = true;
+            name += "T";
+            break;
+        case "6":
+            // Advanced
+            opts.method = SearchMethod.TIME;
+            opts.timeout = 100;
+            opts.optimal = true;
+            opts.config.movePruning;
+            opts.config.forecast = 0.001;
+            opts.config.firstTileValue = 1.5;
+            opts.config.quickEval = true;
+            opts.config.negativeScore = true;
+            name += "A";
+            break;
+        case "7":
+            // Master
+            opts.method = SearchMethod.TIME;
+            opts.timeout = 1000;
+            opts.optimal = true;
+            opts.config.movePruning;
+            opts.config.forecast = 0.001;
+            opts.config.firstTileValue = 1.5;
+            opts.config.quickEval = true;
+            opts.config.negativeScore = true;
+            name += "M";
             break;
     }
-    name += "L" + level.toString();
     // const ai = new MultiAI(id, opts);
     const ai = new AI(id, opts);
     ai.name = name;

@@ -88,6 +88,19 @@
                     </div>
                 </div>
             </div>
+            <h2>Options</h2>
+            <div id="options" class="border">
+                <form id="options-form" onsubmit="return false;">
+                    <div class="option">
+                        <input type="checkbox" name="shadow-tiles" id="enable-show-wall-tiles" />
+                        <label for="enable-show-wall-tiles">Show full lines on wall</label>
+                    </div>
+                    <div class="option">
+                        <input type="checkbox" name="auto-play" id="enable-auto-play" />
+                        <label for="enable-auto-play">Automatically play AI moves</label>
+                    </div>
+                </form>
+            </div>
             <div class="Tiles">
                 <button id="start-button">Start</button>
             </div>
@@ -121,23 +134,17 @@
                     <label
                         >Personality:
                         <select class="setup-ai-type" name="personality">
-                            <option value="friendly">Friendly</option>
-                            <option value="tactical">Tactical</option>
-                            <!-- <option value="centre">Centering</option> -->
-                            <!-- <option value="forecast">Forecaster</option> -->
+                            <option value="1">Noob</option>
+                            <option value="2">Beginner</option>
+                            <option value="3">Intermediate</option>
+                            <option value="4">Competitive</option>
+                            <option value="5">Tactical</option>
+                            <option value="6">Advanced</option>
+                            <option value="7">Master</option>
                         </select>
                     </label>
                 </div>
-                <div>
-                    <label
-                        >Difficulty:
-                        <select class="setup-ai-level" name="level">
-                            <option value="1">Easy</option>
-                            <option value="2">Medium</option>
-                            <option value="3" selected="selected">Hard</option>
-                        </select>
-                    </label>
-                </div>
+                <div class="setup-ai-description">Description</div>
                 <div class="remove-button-div flex-row">
                     <button type="button" class="remove-button">Remove</button>
                 </div>

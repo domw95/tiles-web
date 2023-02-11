@@ -1,6 +1,7 @@
 // All the required function for manipulating the game display
 import { GameState, Move, PlayerBoard, PlayerInterface, Tile } from "azul-tiles";
 import { State } from "azul-tiles/dist/state.js";
+import { Options } from "./options";
 
 const ATTR = {
     tile_colour: "tile-colour",
@@ -211,7 +212,7 @@ export class GuiDisplay {
     boards: Array<HTMLElement> = [];
     lines: Array<Array<HTMLElement>> = [];
 
-    constructor(gamestate: GameState, public players: Array<PlayerInterface>) {
+    constructor(gamestate: GameState, public players: Array<PlayerInterface>, public opts: Options) {
         // Create player boards
         gamestate.playerBoards.forEach((_, i) => {
             this.boards.push(add_board(i, players[i].name));
@@ -391,7 +392,7 @@ export class GuiDisplay {
                 if (wall_tile != Tile.Null) {
                     tile.setAttribute(ATTR.tile_colour, wall_tile.toString());
                     tile.removeAttribute(ATTR.shadow);
-                } else if (shadow_tile != Tile.Null) {
+                } else if (shadow_tile != Tile.Null && this.opts.shadowTiles) {
                     tile.setAttribute(ATTR.tile_colour, shadow_tile.toString());
                     tile.setAttribute(ATTR.shadow, "");
                 } else {

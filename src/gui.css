@@ -74,7 +74,7 @@ h2 {
     margin: 10px;
 }
 
-/* Mak instruction text a bit nicer */
+/* Make instruction text a bit nicer */
 #instruction {
     padding: 10px;
 }
@@ -88,7 +88,8 @@ h2 {
 }
 #setup,
 #setup-box,
-#players {
+#players,
+#options {
     align-items: center;
 }
 
@@ -108,7 +109,8 @@ h2 {
 
 /* Ensure setup fills width */
 #setup,
-#setup-box {
+#setup-box,
+#options {
     width: 100%;
 }
 
@@ -117,6 +119,10 @@ h2 {
     border-bottom: 2px;
     border-bottom-style: solid;
     align-items: flex-end;
+}
+
+.option {
+    margin: 10px;
 }
 
 /* Remove margins from text */

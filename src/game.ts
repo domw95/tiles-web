@@ -1,6 +1,7 @@
 // Handles the running of the game in gui mode
 import { GameState, Move, PlayerInterface, PlayerType, Tile } from "azul-tiles";
 import { State } from "azul-tiles/dist/state.js";
+import { Options } from "./options";
 import { GuiDisplay } from "./display";
 
 export class Human implements PlayerInterface {
@@ -22,7 +23,7 @@ export class GuiGame {
     possible_lines: Array<number> = [];
 
     // Creates a new game with given setup details
-    constructor(public players: Array<PlayerInterface>) {
+    constructor(public players: Array<PlayerInterface>, public opts = new Options()) {
         // Create gamestate
         this.gamestate = new GameState();
 
@@ -30,7 +31,7 @@ export class GuiGame {
         this.gamestate.newGame(this.players.length);
 
         // Update the display
-        this.display = new GuiDisplay(this.gamestate, this.players);
+        this.display = new GuiDisplay(this.gamestate, this.players, this.opts);
 
         this.assign_callbacks();
     }
@@ -199,6 +200,7 @@ export class GuiGame {
                 this.gamestate.nextTurn();
                 this.display.update_with_move(move, this.gamestate);
                 this.clear_selected();
+                this.autoplay_move();
             }
         } else {
             this.clear_selected();
@@ -226,6 +228,7 @@ export class GuiGame {
                         this.gamestate.nextTurn();
                         // Update the screen
                         this.display.update_with_move(move, this.gamestate);
+                        this.autoplay_move();
 
                         break;
                     case PlayerType.HUMAN:
@@ -315,6 +318,15 @@ export class GuiGame {
             return moves[0];
         } else {
             Error("${moves.length} moves match");
+        }
+    }
+
+    autoplay_move() {
+        if (!this.opts.autoplay) {
+            return;
+        }
+        if (this.get_active_player().type == PlayerType.AI) {
+            this.screen_click_callback(new Event("autoplay"));
         }
     }
 }

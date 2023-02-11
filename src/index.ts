@@ -54,7 +54,7 @@ document.getElementById("start-button")?.addEventListener("click", (event) => {
     document.getElementById("game")!.style.display = "";
 
     // Start the game
-    gui_game = new GuiGame(players);
+    gui_game = new GuiGame(players, options);
 
     // @ts-ignore
     plausible("Tiles Game", { props: { type: "Start" } });
