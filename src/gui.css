@@ -133,7 +133,8 @@ h2 {
 /* Position player, type and Add player on own row */
 .player-header,
 .player-type-header,
-#add-player-string {
+#add-player-string,
+.setup-ai-description {
     width: 100%;
     margin: auto;
     text-align: center;
@@ -226,6 +227,9 @@ button {
     .score {
         font-size: 11.25vw;
     }
+    .score[expected-score] {
+        font-size: 7vw;
+    }
     .name {
         font-size: 6vw;
     }
@@ -245,6 +249,9 @@ button {
     }
     .score {
         font-size: 54px;
+    }
+    .score[expected-score] {
+        font-size: 35px;
     }
     .name {
         font-size: 30px;

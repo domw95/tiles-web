@@ -198,8 +198,8 @@ export class GuiGame {
                 ) as Move;
                 this.gamestate.playMove(move);
                 this.gamestate.nextTurn();
-                this.display.update_with_move(move, this.gamestate);
                 this.clear_selected();
+                this.display.update_with_move(move, this.gamestate);
                 this.autoplay_move();
             }
         } else {
@@ -322,11 +322,15 @@ export class GuiGame {
     }
 
     autoplay_move() {
-        if (!this.opts.autoplay) {
-            return;
-        }
-        if (this.get_active_player().type == PlayerType.AI) {
-            this.screen_click_callback(new Event("autoplay"));
+        if (
+            (this.opts.autoplay &&
+                (this.gamestate.state == State.turn && this.get_active_player().type) == PlayerType.AI) ||
+            (this.opts.autoRound && this.gamestate.state == State.endOfTurns)
+        ) {
+            setTimeout(() => {
+                const elem = document.getElementById("game") as HTMLElement;
+                elem.click();
+            });
         }
     }
 }

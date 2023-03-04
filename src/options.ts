@@ -2,7 +2,10 @@
 
 export class Options {
     autoplay = false;
-    shadowTiles = true;
+    autoRound = false;
+    shadowTiles = false;
+    highlightPrevious = false;
+    expectedScore = false;
     constructor() {
         //
     }

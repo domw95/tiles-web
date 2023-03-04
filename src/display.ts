@@ -8,6 +8,7 @@ const ATTR = {
     highlight: "highlight",
     border_colour: "border-colour",
     shadow: "shadow",
+    expctedScore: "expected-score",
 };
 
 const CLASS = {
@@ -354,6 +355,8 @@ export class GuiDisplay {
         // If not end of game, setup for next round
         if (gamestate.state != State.gameEnd) {
             this.create_factories(gamestate);
+            this.clear_line_highlights();
+            this.clear_factory_highlights();
             this.highlight_board(gamestate.activePlayer);
             document.getElementById("factories")!.style.display = "";
             document.getElementById("game-end")!.style.display = "none";
@@ -376,14 +379,21 @@ export class GuiDisplay {
 
     // Refreshes content of all lines, wall and floor of given player
     update_board(player_id: number, gamestate: GameState): void {
+        const pb = gamestate.playerBoards[player_id];
         // Update Lines
         for (var i = 0; i < 5; i++) {
             this.update_line(player_id, i, gamestate);
         }
 
+        // Highlight line of previous move
+        const previous_move = gamestate.playedMoves.at(-1);
+        if (this.opts.highlightPrevious && previous_move != undefined && previous_move.player == player_id) {
+            this.highlight_lines(player_id, [previous_move.line]);
+        }
+
         // Update Walls
-        const wall = gamestate.playerBoards[player_id].wall;
-        const shadowWall = gamestate.playerBoards[player_id].shadowWall;
+        const wall = pb.wall;
+        const shadowWall = pb.shadowWall;
         const wall_elem = document.getElementById("wall-" + player_id) as HTMLElement;
         [...wall_elem.children].forEach((row, row_ind) => {
             [...row.children].forEach((tile, col_ind) => {
@@ -404,7 +414,17 @@ export class GuiDisplay {
         this.update_floor(player_id, gamestate);
 
         // Update score
-        document.getElementById("score-" + player_id)!.innerHTML = gamestate.playerBoards[player_id].score.toString();
+
+        let score_text = pb.score.toString();
+        const elem = document.getElementById("score-" + player_id) as HTMLElement;
+        if (this.opts.expectedScore && gamestate.state != State.gameEnd) {
+            const exp_score = Math.max(0, pb.score + pb.roundScore + pb.bonusScore);
+            score_text += " | " + exp_score.toString();
+            elem.setAttribute(ATTR.expctedScore, "");
+        } else {
+            elem.removeAttribute(ATTR.expctedScore);
+        }
+        elem.innerHTML = score_text;
     }
 
     update_centre(gamestate: GameState): void {

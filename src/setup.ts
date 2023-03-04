@@ -41,6 +41,13 @@ export function add_player(type: string): void {
     player_title.innerHTML = "Player " + player_id;
     players.append(player);
     //  player_header.after(player)
+    update_descriptions();
+
+    // Add callback to personality selector if AI
+    if (type == "ai") {
+        const description_elem = player.getElementsByClassName("setup-ai-type")[0] as HTMLElement;
+        description_elem.onchange = update_descriptions;
+    }
 }
 
 export function get_options() {
@@ -51,6 +58,9 @@ export function get_options() {
     // Populate options and return
     options.shadowTiles = data.get("shadow-tiles") == "on" ? true : false;
     options.autoplay = data.get("auto-play") == "on" ? true : false;
+    options.autoRound = data.get("auto-play-round") == "on" ? true : false;
+    options.highlightPrevious = data.get("highlight-move") == "on" ? true : false;
+    options.expectedScore = data.get("expected-score") == "on" ? true : false;
     console.log(options);
 
     return options;
@@ -181,9 +191,9 @@ function process_ai_player(data: FormData, id: number): PlayerInterface {
             opts.optimal = true;
             opts.config.movePruning;
             opts.config.forecast = 0.001;
-            opts.config.firstTileValue = 1.5;
+            opts.config.firstTileValue = 1;
             opts.config.quickEval = true;
-            opts.config.negativeScore = true;
+            opts.config.negativeScore = false;
             name += "M";
             break;
     }
@@ -191,6 +201,30 @@ function process_ai_player(data: FormData, id: number): PlayerInterface {
     const ai = new AI(id, opts);
     ai.name = name;
     return ai;
+}
+
+const PLAYER_DESCRIPTIONS = [
+    "Newbie player, likes to fill lines, doesn't know much else.",
+    "Has some idea about how to score more points by aligning tiles on the wall.",
+    "Is able to look slightly into the future and combine 2 moves together.",
+    "Watch out for the hate-drafting, this bot is out to beat you. Luckily it still isn't very good yet",
+    "A student of the game, this bot has discovered some useful tactics. Can be a challenge to beat.",
+    "Expect a tough game. Can look quite far ahead and occasionally plays some nasty moves.",
+    "Good luck",
+];
+
+function update_descriptions() {
+    // Get element that holds players
+    const players_elem = document.getElementById("players") as HTMLElement;
+    // Go through each player updating description
+    [...players_elem.children].forEach((player, id) => {
+        const player_data = new FormData(player as HTMLFormElement);
+        if (player_data.get("player-type") == "ai") {
+            const level = player_data.get("personality") as string;
+            const description_elem = player.getElementsByClassName("setup-ai-description")[0] as HTMLElement;
+            description_elem.innerHTML = PLAYER_DESCRIPTIONS[(parseInt(level) as number) - 1];
+        }
+    });
 }
 
 // Add even listener to create a new player
